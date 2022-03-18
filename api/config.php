@@ -2,7 +2,6 @@
 
 $base = explode('/', $_SERVER['PHP_SELF']);
 global $config;
-global $base;
 $config = [];
 
 //Se ambiente for de desenvolvimento, usar configurações para dev, senão usar configurações de produção
