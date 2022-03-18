@@ -21,7 +21,7 @@ Após criação da base de dados, vamos configurar nossa api. Abra o diretório 
 
 Feito isso, abra o arquivo config.php e entre as configurações da base de dados que acabou de criar. Neste momento, se tudo correu bem, você já está conectado a seu banco de dados e ao executar a aplicação no localhost, você verá a tela incial.
 
-Toda classe e id nos códigos CSS e JS/JQeury foram criadas por mim para diferenciar das classes do framework.
+Toda classe e id nos códigos CSS e JS/JQeury que foram criadas por mim tem o prefixo crud- para diferenciar das classes do framework.
 
 O detalhe dessa estrutura fica por conta de os códigos css e js ficarem no arquivo .html de cada página. Isso melhora o desempenho do carregamento pois não fica redundante o carregamento de certos códigos css e nem js, ajudando na implementação de uma PWA.
 
