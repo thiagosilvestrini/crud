@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#242424">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description"
+              content="Aplicação Full Stack PHP + JQuery para CRUD básico">
+        <meta name="keywords" content="crud, php, javascript, jquery">
+        <meta name="author" content="Thiago Silvestrini">
+        <meta name="creator" content="Thiago Silvestrini">
+        <link rel="icon" href="assets/images/favicon.png" type="image/png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="crud-bg-with">
+            <div class="d-flex align-items-center crud-spinner">
+                <strong>Carregando...</strong>
+                <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">CRUD - Full Stack PHP + JQuery </a>
+            </div>
+        </nav>
+
+        <div id='app'></div>
+        
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                        <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                    </a>
+                    <span class="text-muted">Desenvolvido por Thiago Silvestrini</span>
+                </div>
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+                </ul>
+            </footer>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="assets/js/notify.min.js"></script>
+        <script src="rotas.js"></script>
+        <script src="index.js"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=ATInS1yf19Uw-78dokvan9PSmTzsWx34m_BG6_IjjZrj1ZKE6w8ym8Mz24y1U34qHcrRzQBMyex5CG82&currency=BRL&locale=pt_BR" async></script>
+    </body>
+</html>

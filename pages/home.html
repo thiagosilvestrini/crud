@@ -1,0 +1,284 @@
+<style>
+    .crud-page-title{
+        margin-top: 75px;
+        margin-bottom: -50px;
+    }
+
+    .crud-btn-add, 
+    .crud-table {
+        margin-top: 15px;
+    }
+
+    .crud-form-select {
+        margin-bottom: 8px !important;
+    }
+</style>
+
+<div class="container-sm crud-btn-add" style="margin-top: 75px;">
+    <div class="row">
+        <div class="col">
+            <h1 >Tabela de Clientes</h1>
+        </div>
+        <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
+            <button id="crud-add-client" type="button" class="btn btn-success me-md-2" data-bs-toggle="tooltip" data-bs-placement="left" title="Adicionar Cliente">+</button>
+        </div>
+    </div>
+</div>
+<div class="container-sm">
+    <hr>
+</div>
+<div id="crud-form" class="container-sm crud-hide-form">
+    <form>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        <div class="mb-3">
+            <label for="sobrenome" class="form-label">Sobrenome</label>
+            <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">E-Mail</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="rg" class="form-label">RG</label>
+            <input type="text" class="form-control" id="rg" name="rg" required>
+            <div id="passwordHelpBlock" class="form-text">
+                Informe apenas os números e letras de seu RG
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="cpf" class="form-label">CPF</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" required>
+            <div id="passwordHelpBlock" class="form-text">
+                Informe apenas os números de seu CPF
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="col">
+                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
+            </div>
+            <div class="col">
+                <div class="crud-form-select">Sexo</div>
+                <select class="form-select" aria-label="Select para definir sexo do cliente" id="sexo" name="sexo" required>
+                    <option selected>---</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                    <option value="O">Outro</option>
+                </select>
+            </div>
+        </div>
+        <button id="crud-btn-salvar" type="submit" class="btn btn-primary crud-hide-form">SALVAR</button>
+        <button id="crud-btn-atualizar" type="submit" class="btn btn-primary crud-hide-form">ATUALIZAR</button>
+    </form>
+    <hr>
+</div>
+
+<div class="container-sm crud-table">
+    <table class="table table-dark table-hover" id="crud-table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Sobrenome</th>
+            <th scope="col">E-Mail</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">RG</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Nasc.</th>
+            <th scope="col">#</th>
+            <th scope="col">x</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $('title').text('HOME');
+    const BASE = window.location.origin;
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+
+    $('#crud-add-client').on('click', () => {
+        if($('#crud-form').hasClass('crud-hide-form')) {
+            $('#crud-form').removeClass('crud-hide-form')
+        } else {
+            $('#crud-form').addClass('crud-hide-form')
+            $('#nome').val('');
+            $('#sobrenome').val('');
+            $('#email').val('');
+            $('#rg').val('');
+            $('#cpf').val('');
+            $('#data_nascimento').val('');
+            $('#sexo').val('');
+        }
+        if($('#crud-btn-salvar').hasClass('crud-hide-form')) {
+            $('#crud-btn-salvar').removeClass('crud-hide-form')
+        } else {
+            $('#crud-btn-atualizar').addClass('crud-hide-form')
+        }
+    });
+
+    $('#crud-btn-salvar').on('click', (e) => {
+        e.preventDefault();
+
+        let dados = new FormData();
+        dados.append('nome', $('#nome').val());
+        dados.append('sobrenome', $('#sobrenome').val());
+        dados.append('email', $('#email').val());
+        dados.append('rg', $('#rg').val());
+        dados.append('cpf', $('#cpf').val());
+        dados.append('data_nascimento', $('#data_nascimento').val());
+        dados.append('sexo', $('#sexo option:selected').val());
+
+        $.ajax({
+            url: BASE+'/crud/api/client/addClient',
+            data: dados,
+            type: 'POST',
+            processData: false,
+            contentType: false
+        }).done((resp) => {
+            switch (resp) {
+                case 'SUCCESS':
+                    $.notify('Novo cliente salvo com sucesso.', "success");
+                    setTimeout(() => {
+                        window.location.href = BASE+"/crud";
+                    }, 1000);
+                break;
+                default:
+                    $.notify('Erro. Algo deu errado. Tente denovo', "error");
+                break;
+            }
+        }).fail(() => {
+            $.notify('Erro de sistema. Entre em contato com o suporte', "error");
+        }).always(() => {
+            $('#nome').val('');
+            $('#sobrenome').val('');
+            $('#email').val('');
+            $('#rg').val('');
+            $('#cpf').val('');
+            $('#data_nascimento').val('');
+            $('#sexo').val('');
+        })
+    });
+
+    $.ajax({
+        url: BASE+'/crud/api/client/getAllClients',
+        type: 'POST',
+        processData: false,
+        contentType: false
+    }).done((resp) => {
+        let obj = JSON.parse(resp);
+        for(let i = 0; i < obj.length; i++) {
+            $('tbody').append('<tr><th>'+obj[i].id+'</th><td>'+obj[i].nome+'</td><td>'+obj[i].sobrenome+'</td><td>'+obj[i].email+'</td><td>'+obj[i].sexo+'</td><td>'+obj[i].rg+'</td><td>'+obj[i].cpf+'</td><td>'+obj[i].data_nascimento+'</td><td><button data-editar='+obj[i].id+' type="button" class="btn btn-warning crud-btn-editar">Editar</button></td><td><button data-excluir="'+obj[i].id+'" type="button" class="btn btn-danger crud-btn-excluir">Excluir</button></td>');
+        }
+    });
+
+    $('#crud-table').on('click', '.crud-btn-excluir', (e) => {
+        $.ajax({
+            url: BASE+'/crud/api/client/deleteClient',
+            type: 'POST',
+            data: {
+                'cliente' : e.target.getAttribute('data-excluir')
+            }
+        }).done((resp) => {
+            switch (resp) {
+                case 'SUCCESS':
+                    setTimeout(() => {
+                        window.location.href = BASE+"/crud";
+                    }, 1000);
+                break;
+                default:
+                    $.notify('Erro. Algo deu errado. Tente denovo', "error");
+                break;
+            }
+        }).fail(() => {
+            $.notify('Erro de sistema. Entre em contato com o suporte', "error");
+        });
+    });
+
+    $('#crud-table').on('click', '.crud-btn-editar', (e) => {
+        e.preventDefault();
+        if($('#crud-btn-atualizar').hasClass('crud-hide-form')) {
+            $('#crud-btn-atualizar').removeClass('crud-hide-form')
+        } else {
+            $('#crud-btn-atualizar').addClass('crud-hide-form')
+        }
+        $.ajax({
+            url: BASE+'/crud/api/client/getClientPerId',
+            type: 'POST',
+            data: {
+                'cliente' : e.target.getAttribute('data-editar')
+            }
+        }).done((resp) => {
+            let obj = JSON.parse(resp);
+            $('#nome').val(obj.nome);
+            $('#sobrenome').val(obj.sobrenome);
+            $('#email').val(obj.email);
+            $('#rg').val(obj.rg);
+            $('#cpf').val(obj.cpf);
+            $('#data_nascimento').val(obj.data_nascimento);
+            $('#sexo').val(obj.sexo);
+            if($('#crud-form').hasClass('crud-hide-form')) {
+                $('#crud-form').removeClass('crud-hide-form')
+            } else {
+                $('#crud-form').addClass('crud-hide-form')
+            }
+            localStorage.setItem('cliente', e.target.getAttribute('data-editar'));
+        }).fail(() => {
+            $.notify('Erro de sistema. Entre em contato com o suporte', "error");
+        });
+    });
+
+    $('#crud-btn-atualizar').on('click', (e) => {
+        e.preventDefault();
+
+        let dados = new FormData();
+        dados.append('cliente', localStorage.getItem('cliente'));
+        dados.append('nome', $('#nome').val());
+        dados.append('sobrenome', $('#sobrenome').val());
+        dados.append('email', $('#email').val());
+        dados.append('rg', $('#rg').val());
+        dados.append('cpf', $('#cpf').val());
+        dados.append('data_nascimento', $('#data_nascimento').val());
+        dados.append('sexo', $('#sexo option:selected').val());
+
+        $.ajax({
+            url: BASE+'/crud/api/client/updateClient',
+            data: dados,
+            type: 'POST',
+            processData: false,
+            contentType: false
+        }).done((resp) => {
+            switch (resp) {
+                case 'SUCCESS':
+                    $.notify('Cliente atualizado com sucesso.', "success");
+                    setTimeout(() => {
+                        window.location.href = BASE+"/crud";
+                    }, 1000);
+                break;
+                default:
+                    $.notify('Erro. Algo deu errado. Tente denovo', "error");
+                break;
+            }
+        }).fail(() => {
+            $.notify('Erro de sistema. Entre em contato com o suporte', "error");
+        }).always(() => {
+            $('#nome').val('');
+            $('#sobrenome').val('');
+            $('#email').val('');
+            $('#rg').val('');
+            $('#cpf').val('');
+            $('#data_nascimento').val('');
+            $('#sexo').val('');
+            localStorage.removeItem('cliente')
+        })
+    });
+</script>

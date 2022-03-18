@@ -1,0 +1,17 @@
+.crud-bg-with {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 999;
+}
+
+.crud-bg-with > .crud-spinner {
+    margin-top: 75px;
+    margin-left: 10px;
+    width: 50%;
+}
+
+.crud-hide-form {
+    display: none;
+}
