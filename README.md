@@ -1,4 +1,4 @@
-Esté código tem como finalidade criar um CRUD básico e interagir com um elemento <table>.
+Esté código tem como finalidade criar um CRUD básico e interagir com um elemento table.
 
 Utilazeremos no back-end uma estrutura MC - (MODEL-CONTROLLER) - em PHP onde os resultados serão requisitados via AJAX e impressa na tela. Para as requisições AJAX usaremos a biblioteca JQuery. E no front-end usaremos o framework Bootstrap. 
 
